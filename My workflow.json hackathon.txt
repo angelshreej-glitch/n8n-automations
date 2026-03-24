@@ -1,0 +1,147 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {
+          "maxTokens": 2000
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        208
+      ],
+      "id": "bed15595-8327-4858-ab55-7cdfabd3d297",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "DJCXxz5obUjkoNB2",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "bfb88104-82ca-4516-9557-ed9e6358ad2d",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6b072663-c951-43e3-a83f-9324c5831594",
+      "name": "User Input (Policy Paste)",
+      "webhookId": "5c1fb320-4d67-456a-b741-1d9ebef11b93"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "9f1a72d0-462d-4737-b242-5bc7f8998131",
+      "name": "Terms-Tamer 🦁 Logic (The Auditor)",
+      "notes": "You are Terms-Tamer 🦁. When a student pastes a policy, provide a 1-sentence VERDICT, a bulleted list of WHY IT'S A TRAP, and a final COACH'S ADVICE. Keep it under 100 words."
+    },
+    {
+      "parameters": {
+        "url": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('URL', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        368,
+        208
+      ],
+      "id": "c558a52a-8f11-4e13-a355-565484569cd5",
+      "name": "R&D: Future URL Scraping Feature",
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Terms-Tamer 🦁 Logic (The Auditor)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Terms-Tamer 🦁 Logic (The Auditor)",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "User Input (Policy Paste)": {
+      "main": [
+        [
+          {
+            "node": "Terms-Tamer 🦁 Logic (The Auditor)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "R&D: Future URL Scraping Feature": {
+      "ai_tool": [
+        [
+          {
+            "node": "Terms-Tamer 🦁 Logic (The Auditor)",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "a7f4db8a-3128-40fe-9a92-c90a2b0ca61e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "58598174c428150e552b6d53716528a41bcda426a3e44d757caf83a3e36fc9f3"
+  },
+  "id": "8gVwAzKvedZt4HMU",
+  "tags": []
+}
